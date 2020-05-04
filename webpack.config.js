@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const aliases = require("./webpack.alias");
 
 module.exports = (env) => {
   return {
@@ -8,6 +9,10 @@ module.exports = (env) => {
     output: {
       path: path.resolve(__dirname, "dist"),
       filename: "bundle.js",
+    },
+    resolve: {
+      alias: aliases,
+      extensions: [".js", ".jsx", ".ts", ".tsx"],
     },
     module: {
       rules: [
@@ -20,7 +25,7 @@ module.exports = (env) => {
         },
         {
           test: /\.(s*)css$/,
-          use: ["style-loader", "css-loader", "sass-loader"],
+          use: ["style-loader", "css-loader", "sass-loader", "postcss-loader"],
         },
         {
           test: /\.png|svg|jpg$/,
